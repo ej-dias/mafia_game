@@ -15,8 +15,11 @@ export default function HomeScreen() {
         style={styles.tomato}
         resizeMode="contain"
       />
-      <TouchableOpacity style={styles.button} onPress={() => router.push('/game')}>
-        <Text style={styles.buttonText}>PLAY</Text>
+      <TouchableOpacity style={styles.button} onPress={() => router.push('/playerMenu')}>
+        <Text style={styles.buttonText}>START</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={() => router.push('/playerView')}>
+        <Text style={styles.buttonText}>PLAYERS</Text>
       </TouchableOpacity>
     </View>
   );
@@ -54,6 +57,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 4,
     elevation: 8,
+    marginBottom:10
   },
   buttonText: {
     color: 'white',

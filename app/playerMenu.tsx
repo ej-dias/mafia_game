@@ -1,6 +1,9 @@
 import { AntDesign } from "@expo/vector-icons"; // Para o ícone de busca
 import * as ImagePicker from "expo-image-picker";
+import { useRouter } from "expo-router";
 import React, { useState } from "react";
+import { usePlayerContext } from "./PlayerContext";
+
 import {
   FlatList,
   Image,
@@ -13,11 +16,12 @@ import {
 } from "react-native";
 
 export default function PlayerMenu() {
-  const [players, setPlayers] = useState<any[]>([]);
+  const { players, setPlayers } = usePlayerContext();
   const [modalVisible, setModalVisible] = useState(false);
   const [newName, setNewName] = useState("");
   const [newImage, setNewImage] = useState<string | null>(null);
   const [searchText, setSearchText] = useState("");
+  const router = useRouter();
 
   const openImagePicker = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -52,6 +56,10 @@ export default function PlayerMenu() {
 
   return (
     <View style={styles.container}>
+      <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
+        <Text style={styles.backButtonText}>← Voltar</Text>
+      </TouchableOpacity>
+
       <Text style={styles.title}>Add Player</Text>
 
       <View style={styles.searchContainer}>
@@ -82,7 +90,7 @@ export default function PlayerMenu() {
                   <View style={styles.circle} />
                 )}
                 <View style={{ flex: 1, marginLeft: 10 }}>
-                  <Text style={styles.playerName}>{item.name }</Text>
+                  <Text style={styles.playerName}>{item.name}</Text>
                   <View style={styles.buttonRow}>
                     <TouchableOpacity
                       style={styles.actionButton}
@@ -162,7 +170,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#8c52ff",
     borderRadius: 10,
-    padding:30
+    padding: 30,
   },
   title: {
     fontSize: 28,
@@ -206,7 +214,7 @@ const styles = StyleSheet.create({
   buttonRow: {
     flexDirection: "row",
     gap: 0,
-    marginLeft:10
+    marginLeft: 10,
   },
   actionButton: {
     backgroundColor: "#a4b0be",
@@ -278,4 +286,18 @@ const styles = StyleSheet.create({
   nameText: {
     fontWeight: "bold",
   },
+  backButton: {
+  backgroundColor: '#56e0e0',
+  paddingHorizontal: 20,
+  paddingVertical: 10,
+  borderRadius: 8,
+  alignSelf: 'flex-start',
+  marginBottom: 10,
+},
+backButtonText: {
+  color: '#fff',
+  fontWeight: 'bold',
+  fontSize: 16,
+},
+
 });
